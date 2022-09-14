@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\ClientPost;
 use App\models\BloodType;
 use App\models\Category;
 use App\models\City;
@@ -16,9 +17,12 @@ use App\Http\Requests\StorePostRequest;
 use App\Models\CityClient;
 use App\models\DonationRequest;
 use App\Models\Favourite;
+use App\models\Notification;
 use App\Models\Token;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Storage;
+use spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
 
 
 
@@ -165,48 +169,63 @@ class Maincontroller extends Controller
             return response()->json(['msg' => $data]);
         }
 
-        $donationrequest = $request->user()->client_donation()->create($request->all());
-
+       
+       
+       
+        $donationrequest = $request->user()->donations()->create($request->all());
 
         // --> people will send notification to them
 
-        // $clientsIds = $donationrequest->city->governrate->govclient()
-        // ->wherehas('clientbloodtype' , function($q) use ($request , $donationrequest){
+        $clientsIds = $donationrequest->city->governrate->clients()
+         ->whereHas('bloodtype' , function($q) use ($request , $donationrequest){
 
-        //      $q->where('blood_types.id' , $request->blood_type_id);
+              $q->where('blood_type_id' , $donationrequest->blood_type_id);
 
-        //  })->pluck('clients.id')->toArray();
-        // dd($clientsIds);
+          })->pluck('clients.id')->toArray();
 
-        // if (count($clientsIds)) {
-        //     # code...
-        //     $notification = $donationrequest->notifications()->create([
-        //         'title' => '' ,
-        //         'content' => $request->user()->name . "محتاج تبرع بالدم "  ,
-        //     ]);
+       // dd($donationrequest->id);
+       
 
-        //     $notification->clients()->attach($clientsIds);
+        if (count($clientsIds)) {
+            # code...
+            $notification = $donationrequest->notifications()->create([
+                'title' => 'اشعار جديد' ,
+                'content' => $request->user()->name . "محتاج تبرع بالدم "  ,
+                'donation_requests_id' => $donationrequest->id
+            ]);
 
-        //     $tokens = Token::whereIn('client_id' , $clientsIds)->where('token' , '!=' , null)->pluck('token')->toArray();
+            $notification->notification_client()->attach($clientsIds);
 
-        //     if (count($tokens)) 
-        //     {
-        //         # code...
-        //         $title = $notification->title;
-        //         $body = $notification->content;
-        //         $data = [
-        //             'donation_request_id' => $donationrequest->id
-        //         ];
+            $tokens = Token::whereIn('client_id' , $clientsIds)->where('token' , '!=' , null)->pluck('token')->toArray();
 
-        //         $send = notifybyfirebase($title , $body , $tokens , $data);
-        //         info('firebase result' , $send);
-        //     }
+            if (count($tokens)) 
+            {
+                # code...
+                // $title = $notification->title;
+                // $body = $notification->content;
+                // $data = [
+                //     'donation_requests_id' => $donationrequest->id
+                // ];
 
-        //}
+                // $send = notifybyfirebase($title , $body , $tokens , $data);
+                // info('firebase result' , $send);
+                return response()->json(['msg' =>  $donationrequest]);
+            }
+            else {
+                # code...
+            }
 
+           
+        }
+        else {
+            # code...
+        }
         return response()->json(['msg' =>  $donationrequest]);
+       
         
     }
+
+
 
     function donation_requests(Request $request)
     {
@@ -214,11 +233,6 @@ class Maincontroller extends Controller
         return response()->json(['msg' => $result]);
     }
 
-    
-    function notifications()
-    {
-        
-    }
 
 
     function register_notification_token(Request $request)
@@ -309,26 +323,22 @@ class Maincontroller extends Controller
         
     }
 
-    
-    function notification_settings()
-    {
-        
-    }
-
-
-    function update_notification_settings()
-    {
-        
-    }
+   
+   
 
 
     function add_favourite(Request $request)
     {
-        $fav = new Favourite();
-        $fav->client_id = auth()->guard('client')->user()->id;
-        $fav->post_id = $request->post_id;
-        $fav->save();
-        return response()->json(['msg' => $fav]);
+        // $fav = new Favourite();
+        // $fav->client_id = auth()->guard('client')->user()->id;
+        // $fav->post_id = $request->post_id;
+        // $fav->save();
+        $fav = $request->user()->client_post()->attach($request->post_id ,[
+            'client_id' => $request->user()->id ,
+            'is_favourite' => true
+        ]
+        );
+        return response()->json(['msg' => 'added to favourite successfully']);
     }
 
 
@@ -341,6 +351,23 @@ class Maincontroller extends Controller
             
             array_push($data,Post::where( 'id' , $fav->post_id)->get());
         }
+    //    $obj = new Post();
+    //    $data = Post::with('post_client')->where('client_id' , $request->user()->id)->get();
+//       $data = ClientPost::where('post_id' , $request->post_id)->get();
+        return response()->json(['favourites' => $data]);
+        
+    }
+
+
+    function clients_of_favourite_post(Request $request)
+    {
+        $data = array();
+        $favourite = Favourite::where('post_id' , $request->post_id)->get();
+        foreach ($favourite as $fav) {
+            # code...
+            
+            array_push($data,Client::where( 'id' , $fav->client_id)->get());
+        }
        // 
         return response()->json(['favourites' => $data]);
         
@@ -349,6 +376,22 @@ class Maincontroller extends Controller
 
 
     function settings()
+    {
+        
+    }
+
+    function notifications(Request $request)
+    {
+        
+    }
+    
+    function notification_settings()
+    {
+        
+    }
+
+
+    function update_notification_settings()
     {
         
     }

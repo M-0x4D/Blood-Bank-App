@@ -11,7 +11,9 @@ class Category extends Model
     public $timestamps = true;
     protected $fillable = array('name');
 
-    public function catposts()
+    //! post ==> one relation 
+    
+    public function posts()
     {
         return $this->hasMany('App\models\Post');
     }

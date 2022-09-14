@@ -11,14 +11,23 @@ class Governrate extends Model
     public $timestamps = true;
     protected $fillable = array('name');
 
-    public function citiesgov()
+    //! city  ==> one relation
+
+    public function cities()
     {
         return $this->hasMany('App\models\City');
     }
 
-    public function govclient()
+    //! client  ==> two relations
+
+    public function governrate_client()
     {
         return $this->belongsToMany('App\models\Client');
+    }
+
+    public function clients()
+    {
+        return $this->hasMany('App\models\Client');
     }
 
 }

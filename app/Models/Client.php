@@ -12,25 +12,25 @@ use Spatie\Permission\Traits\HasRoles;
 class Client extends Authenticable 
 {
 
-    
+
+    use HasRoles;
 
     protected $table = 'clients';
     public $timestamps = true;
-    protected $fillable = array('phone', 'email', 'blood_type_id', 'password', 'date_of_birth', 'last_donation_date', 'name', 'pin_code', 'city_id' , 'api_token');
+    protected $fillable = array('phone', 'email', 'blood_type_id', 'password', 'date_of_birth', 'last_donation_date', 'name', 'pin_code', 'city_id' , 'api_token' , 'governrate_id');
 
-    public function bloodtype()
-    {
-        return $this->belongsTo('App\models\BloodType');
-    }
+   //! token  ==> one relation
 
     public function tokens()
     {
         return $this->hasMany('App\models\Token');
     }
 
-    public function cities()
+    //! city  ==> tow relations
+
+    public function city()
     {
-        return $this->hasMany('App\models\City');
+        return $this->belongsTo('App\models\City');
     }
 
     public function client_city()
@@ -38,35 +38,85 @@ class Client extends Authenticable
         return $this->belongsToMany('App\models\City');
     }
 
-    public function client_donation()
+
+    //! donation ==> one relation
+
+    public function donations()
     {
         return $this->hasMany('App\models\DonationRequest');
     }
 
-    // public function client_donation_request()
-    // {
-    //     return $this->belongsTo('App\models\Client');
-    // }
+    //! governrate ==> tow relations
 
-    public function clientgov()
+    public function client_governrate()
     {
         return $this->belongsToMany('App\models\Governrate');
     }
 
-    public function clientbloodtype()
+    public function governrate()
+    {
+        return $this->belongsTo('App\models\Governrate' , 'governrate_id');
+    }
+
+
+
+    //! bloodtype ==> two relations
+
+    public function bloodtype()
+    {
+        return $this->belongsTo('App\models\BloodType' , 'blood_type_id');
+    }
+
+    public function client_bloodtype()
     {
         return $this->belongsToMany('App\models\BloodType');
     }
 
-    public function clientnotification()
+    //! notification ==> one relation
+
+    public function client_notification()
     {
         return $this->belongsToMany('App\models\Notification');
     }
 
-    public function clientpost()
+    //! post  ==> two relations
+
+    public function posts()
+    {
+        return $this->hasMany('App\models\Post');
+    }
+
+    public function client_post()
     {
         return $this->belongsToMany('App\models\Post');
     }
+
+
+    //! Favourite ==> one relation
+    
+    public function client_favourite()
+    {
+        return $this->belongsToMany('App\models\Favourite');
+    } 
+
+
+    //! role ==> one relation
+
+    public function roles()
+    {
+        return $this->belongsToMany('App\models\Role' , 'model_has_roles' , 'model_id');
+    } 
+
+
+    //! permission ==> one relation
+
+    public function client_permisson()
+    {
+        return $this->belongsToMany('App\models\Permission');
+    } 
+
+
+
 
     protected $hidden = [
         'password',

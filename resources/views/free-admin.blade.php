@@ -505,7 +505,7 @@
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-book"></i>
               <p>
-                Pages
+                Users
                 <i class="fas fa-angle-left right"></i>
               </p>
             </a>
@@ -531,13 +531,13 @@
               <li class="nav-item">
                 <a href="../examples/projects.html" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Projects</p>
+                  <p>Users</p>
                 </a>
               </li>
               <li class="nav-item">
                 <a href="../examples/project-add.html" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Project Add</p>
+                  <p>Users permissions</p>
                 </a>
               </li>
               <li class="nav-item">

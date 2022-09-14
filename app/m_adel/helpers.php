@@ -44,7 +44,7 @@ function notifybyfirebase($title , $body , $tokens , $data=[])
 
     $ch =  curl_init();
       // initializes a cURL session
-    curl_setopt($ch , CURLOPT_URL  ,''); 
+    curl_setopt($ch , CURLOPT_URL  ,'firebase_link'); 
     curl_setopt($ch , CURLOPT_POST , true); 
     curl_setopt($ch , CURLOPT_HTTPHEADER , $headers); 
     curl_setopt($ch , CURLOPT_RETURNTRANSFER , true); 

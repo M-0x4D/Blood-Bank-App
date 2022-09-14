@@ -13,6 +13,8 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 use App\Rules\password_validation;
+use spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
 
 class Authcontroller extends Controller
 {
@@ -38,8 +40,21 @@ class Authcontroller extends Controller
         }
 
         else {
-            # code...
-            return $request;
+            
+        $phone = Client::where('phone' , $request->phone)->first();
+        if($phone == NULL)
+        {
+        $request->merge(["password" => bcrypt($request->password)]);
+        $client = Client::create($request->all());
+        $client->api_token = Str::random(60);
+        $client->save();
+        return $client;
+
+        }
+        else
+        {
+            return response()->json(['msg' => 'failed']);
+        }
             
         }
        
@@ -52,20 +67,7 @@ class Authcontroller extends Controller
         //     # code...
         //      return response()->json("failed");
         // }
-        // $phone = Client::where('phone' , $request->phone)->first();
-        // if($phone == NULL)
-        // {
-        // $request->merge(["password" => bcrypt($request->password)]);
-        // $client = Client::create($request->all());
-        // $client->api_token = Str::random(60);
-        // $client->save();
-        // return $client;
-
-        // }
-        // else
-        // {
-        //     return response()->json(['msg' => 'phone number are taken']);
-        // }
+        
         
     }
 

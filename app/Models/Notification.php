@@ -11,10 +11,15 @@ class Notification extends Model
     public $timestamps = true;
     protected $fillable = array('title', 'content', 'donation_requests_id');
 
-    public function notification_donation()
+    //! donation request  ==> one relation
+
+    public function donation()
     {
-        return $this->belongsTo('App\models\DonationRequest');
+        return $this->belongsTo('App\models\DonationRequest' , 'donation_requests_id');
     }
+    
+    
+    //! notification  ==> one relation
 
     public function notification_client()
     {

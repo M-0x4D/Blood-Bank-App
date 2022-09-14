@@ -11,24 +11,36 @@ class DonationRequest extends Model
     public $timestamps = true;
     protected $fillable = array('patient_name', 'patient_phone', 'city_id', 'hospital_name', 'blood_type_id', 'patient_age', 'bags_num', 'hospital_address', 'details', 'latitude', 'longitude', 'client_id');
 
-    public function donationcities()
+    //! city  ==> one relation
+
+    public function city()
     {
-        return $this->belongsTo('App\models\City');
+        return $this->belongsTo('App\models\City' , 'city_id');
     }
 
-    public function donation_bloodtypes()
+
+    //! bloodtype  ==> one relation
+
+    public function bloodtype()
     {
         return $this->belongsTo('App\models\BloodType');
     }
 
-    public function donation_client()
+
+    //! client  ==> one relation
+    
+    public function client()
     {
         return $this->belongsTo('App\models\Client');
     }
+    
 
-    public function donation_notification()
+    //! notification  ==> one relation 
+    
+
+    public function notifications()
     {
-        return $this->hasMany('App\models\Notification');
+        return $this->hasMany('App\models\Notification' , 'id');
     }
 
 }

@@ -13,8 +13,9 @@ class Token extends Model
     protected $fillable = array('client_id' , 'token' , 'type');
 
 
+    //! client  ==> one relation
 
-    public function token_client()
+    public function client()
     {
         return $this->belongsTo('App\models\Client');
     }
