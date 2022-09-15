@@ -31,7 +31,7 @@ Route::group(['prefix' => 'v1'] ,  function()
 {
 
 
-    Route::middleware((['auth:client' , 'role:owner']))->group(function(){
+    Route::middleware((['auth:client' , 'role:admin']))->group(function(){
         Route::post('posts', [Maincontroller::class , 'posts']);
         Route::post('create-post', [Maincontroller::class , 'create_post']);
 

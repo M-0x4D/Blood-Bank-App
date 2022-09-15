@@ -17,7 +17,7 @@ class create_admin_user extends Seeder
         
         $user =new  Client();
         $roleId = [1];
-        $user->roles()->attach($roleId , ['model_type' => 'test' , 'model_id' => 3]);
+        $user->client_role()->attach($roleId , ['model_type' => 'test' , 'model_id' => 3]);
         
     }
 }

@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Mail\ResetPassword;
+use App\models\City;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use App\models\Client;
+use App\models\Governrate;
 use App\Rules\custom_validation;
 use Illuminate\Support\Facades\Auth;
 use Facade\FlareClient\Http\Response;
@@ -18,7 +20,7 @@ use Spatie\Permission\Models\Permission;
 
 class Authcontroller extends Controller
 {
-    //
+    //! register normal user
     function register(Request $request)
     {
 
@@ -36,18 +38,23 @@ class Authcontroller extends Controller
 
         if ($validator->fails()) {
             # code...
-             return response()->json("failed");
+             return response()->json("test");
         }
 
         else {
             
+        
         $phone = Client::where('phone' , $request->phone)->first();
         if($phone == NULL)
         {
         $request->merge(["password" => bcrypt($request->password)]);
         $client = Client::create($request->all());
         $client->api_token = Str::random(60);
+        $city = City::where('id' , $request->city_id)->first();
+        $governrate = Governrate::where('id' , $city->governrate_id)->first();
+        $client->governrate_id = $governrate->id;
         $client->save();
+        $client->client_role()->attach(4 , ['model_type' => 'test' , 'model_id' => $client->id]);
         return $client;
 
         }
@@ -57,19 +64,10 @@ class Authcontroller extends Controller
         }
             
         }
-       
-       
-
-    
-
-
-        // if ($validator->fails()) {
-        //     # code...
-        //      return response()->json("failed");
-        // }
-        
         
     }
+
+
 
 
     function login(Request $request)

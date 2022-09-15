@@ -19,7 +19,7 @@ class Permission extends Model
 
     public function permission_client()
     {
-        return $this->belongsToMany(Client::class);
+        return $this->belongsToMany('App\models\Client' , 'model_has_permissions');
     }
 
 
