@@ -55,7 +55,7 @@ class Authcontroller extends Controller
         $client->date_of_birth = $request->date_of_birth;
         $client->status = true;
         $client->save();
-        $client->client_role()->attach(4 , ['model_type' => 'test' , 'model_id' => $client->id]);
+        $client->client_role()->attach(4 , ['model_type' => 'normal_user' , 'model_id' => $client->id]);
         return $client;
 
         }
