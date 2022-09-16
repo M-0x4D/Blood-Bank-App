@@ -29,7 +29,7 @@ class Authcontroller extends Controller
         $validator = validator()->make($request->all() , [
             'name' => 'required',
             'email' => 'required',
-            //'phone' => ['required' , 'unique:clients' , new custom_validation()],
+            'phone' => ['required' , 'unique:clients' , new custom_validation()],
             'password' => ['required' , new password_validation()],
             'city_id' => 'required'
         ]);
@@ -50,7 +50,6 @@ class Authcontroller extends Controller
         $request->merge(["password" => bcrypt($request->password)]);
         $client = Client::create($request->all());
         $client->api_token = Str::random(60);
-        $user = new Client();
         $client->governrate_id = $client->city->governrate_id;
         $client->save();
         $client->client_role()->attach(4 , ['model_type' => 'test' , 'model_id' => $client->id]);
