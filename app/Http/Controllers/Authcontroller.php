@@ -51,6 +51,9 @@ class Authcontroller extends Controller
         $client = Client::create($request->all());
         $client->api_token = Str::random(60);
         $client->governrate_id = $client->city->governrate_id;
+        $client->last_donation_date = $request->last_donation_date;
+        $client->date_of_birth = $request->date_of_birth;
+        $client->status = true;
         $client->save();
         $client->client_role()->attach(4 , ['model_type' => 'test' , 'model_id' => $client->id]);
         return $client;
