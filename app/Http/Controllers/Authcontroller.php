@@ -94,46 +94,38 @@ class Authcontroller extends Controller
             # code...
             $client = Client::where('phone' , $request->phone)->first();
 
-            return response()->json(['token' =>  $client->api_token ,'msg' => $client]);
-
-        }
-        else {
-            
-            return response()->json(['msg' => 'not log in ']);
-        }
-   /////////////////////////////////////////////////////////////     
-        $client = Client::where('phone' , $request->phone)->first();
-        if($client)
+            if($client)
         {
             if(Hash::check($request->password , $client->password))
             {
                 return response()->json(['api_token' => $client->api_token , 'user'=>$client]);
 
             }
+            else
+        {
+            return returnjson(0,'failed','password is not valid');
+        }
+            
             
         }
         else
         {
-            return response()->json(['user'=> "no user"]);
+            return returnjson(0,'failed','phone number is not valid');
         }
-
-        // $check = auth()->validate($request->all());
-
-        // if($check)
-        // {
-        //     return auth()->api_tokem;
-        // }
-        // else
-        // {
-        //     return "failed";
-        // }
+           // 
+            }
+        else {
+            return returnjson(0,'failed','validation error ');
+        } 
         
-         
-            
-        
-        
-       
     }
+
+
+
+
+
+
+
 
     function reset_password(Request $request)
     {

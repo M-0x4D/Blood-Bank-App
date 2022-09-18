@@ -29,26 +29,15 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::group(['prefix' => 'v1'] ,  function()
 {
-
-
+    
     Route::middleware((['auth:client' , 'role:admin']))->group(function(){
         Route::post('posts', [Maincontroller::class , 'posts']);
-        Route::post('create-post', [Maincontroller::class , 'create_post']);
-
-
-
-        
+        Route::post('create-post', [Maincontroller::class , 'create_post']);    
 
     });
-
     Route::post('governrates', [Maincontroller::class , 'governrates']);
-
     Route::post('register', [Authcontroller::class , 'register']);
     Route::post('login', [Authcontroller::class , 'login']);
-
-   
-
-
     Route::middleware(['auth:client' ])->group(function(){
         Route::post('add-category', [Maincontroller::class , 'add_category']);
         Route::post('add-governrate', [Maincontroller::class , 'add_governrate']);
@@ -67,17 +56,8 @@ Route::group(['prefix' => 'v1'] ,  function()
         Route::post('post-details', [Maincontroller::class , 'post_details']);
         Route::post('clients-of-favourite-post', [Maincontroller::class , 'clients_of_favourite_post']);
     });
-
-    
-    
-    
     Route::post('categories', [Maincontroller::class , 'categories']);
-    
-    
-    
-    
     Route::post('blood-types', [Maincontroller::class , 'blood_types']);
-
 });
 
 
