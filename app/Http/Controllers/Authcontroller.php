@@ -42,11 +42,7 @@ class Authcontroller extends Controller
         }
 
         else {
-            
-        
-        $phone = Client::where('phone' , $request->phone)->first();
-        if($phone == NULL)
-        {
+               
         $request->merge(["password" => bcrypt($request->password)]);
         $client = Client::create($request->all());
         $client->api_token = Str::random(60);
@@ -57,16 +53,13 @@ class Authcontroller extends Controller
         $client->save();
         $client->client_role()->attach(4 , ['model_type' => 'normal_user' , 'model_id' => $client->id]);
         return $client;
-
-        }
-        else
-        {
-            return response()->json(['msg' => 'failed']);
-        }
             
         }
         
     }
+
+
+
 
 
 
