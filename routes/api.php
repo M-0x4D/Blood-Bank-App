@@ -1,8 +1,10 @@
 <?php
 
-use App\Http\Controllers\Authcontroller;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Authcontroller;
+
 use App\Http\Controllers\Maincontroller;
 
 /*
@@ -26,8 +28,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 
 
-
-Route::group(['prefix' => 'v1'] ,  function()
+Route::prefix('v1')->group( function()
 {
     
     Route::middleware((['auth:client' , 'role:admin']))->group(function(){

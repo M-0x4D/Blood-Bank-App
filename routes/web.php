@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\Authcontroller;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -19,5 +21,17 @@ Route::get('/', function () {
 
 Auth::routes();
 
+
+Route::middleware('auth:client_web')->group(function(){
+
+    Route::get('/free-admin', [AdminController::class, 'index']);
+    Route::get('/users', [AdminController::class, 'users'])->name('users');
+
+});
+
+Route::post('/login', [AdminController::class , 'login'])->name('login');
+Route::get('/logout', [AdminController::class , 'logout'])->name('logout');
+
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::get('/free-admin', [App\Http\Controllers\HomeController::class, 'index'])->name('admin');
+
+Route::get('/test', [AdminController::class, 'test']);
