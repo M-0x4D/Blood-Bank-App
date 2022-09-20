@@ -33,22 +33,30 @@
       <thead>
       <tr>
         <th>user name</th>
+        <th>add role</th>
         <th>edit</th>
         <th>delete</th>
-        <th>Engine version</th>
-        <th>CSS grade</th>
+        
+        
       </tr>
       </thead>
       <tbody>
       @foreach ($clients as $client)
       <tr>
         <td>{{$client->name}}</td>
-        <td>Internet
-          Explorer 4.0
+        <td> 
+            <button type="button" class="btn btn-primary">add role</button>
+
         </td>
-        <td>Win 95+</td>
-        <td> 4</td>
-        <td>X</td>
+        <td>
+            <button type="button" class="btn btn-success">edit</button>
+        </td>
+        <td>
+            <button type="button" class="btn btn-danger">delete</button>
+
+        </td>
+        
+       
       </tr>
       @endforeach
       
