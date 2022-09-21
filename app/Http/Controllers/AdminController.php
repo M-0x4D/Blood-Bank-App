@@ -8,6 +8,13 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
+use App\Mail\ResetPassword;
+use App\Models\User;
+use App\Rules\custom_validation;
+use App\Rules\password_validation;
+
+
 
 
 class AdminController extends Controller
@@ -65,6 +72,58 @@ class AdminController extends Controller
 
     function delete_role(Request $request)
     {
+
+    }
+
+
+    function create_user_view(Request $request)
+    {
+        return redirect('create-user-view');
+
+    }
+
+
+    function create_user(Request $request)
+    {
+        $validator = validator()->make($request->all() , [
+            'name' => 'required',
+            'email' => 'required',
+            'phone' => ['required' , 'unique:clients' , new custom_validation()],
+            'password' => ['required' , new password_validation()],
+            'city_id' => 'required'
+        ]);
+
+       
+
+        if ($validator->fails()) {
+            # code...
+             return response()->json("validation error");
+        }
+
+        else {
+               
+        $request->merge(["password" => bcrypt($request->password)]);
+        $client = Client::create($request->all());
+        $client->api_token = Str::random(60);
+        $client->governrate_id = $client->city->governrate_id;
+        $client->last_donation_date = $request->last_donation_date;
+        $client->date_of_birth = $request->date_of_birth;
+        $client->status = true;
+        $client->save();
+        $client->client_role()->attach(4 , ['model_type' => 'normal_user' , 'model_id' => $client->id]);
+        return redirect('users');
+            
+        }
+
+    }
+
+
+
+
+    function show_user(Request $request , $id)
+    {
+        $user = User::find($id);
+        return view('layouts.front.user-details' , compact('user'));
 
     }
 

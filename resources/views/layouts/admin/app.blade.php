@@ -812,11 +812,13 @@
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     @yield('content')
+    @yield('create-user')
+    @yield('user-details')
     @yield('add-role')
     @yield('edit-role')
     @yield('roles')
-    @yield('test')
-    @yield('user')
+    @yield('free-admin')
+    @yield('users')
   </div>
   <!-- /.content-wrapper -->
 

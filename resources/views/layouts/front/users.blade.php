@@ -1,6 +1,6 @@
 @extends('layouts.admin.app')
 
-@section('user')
+@section('users')
 
 <section class="content-header">
     <div class="container-fluid">
@@ -47,8 +47,10 @@
       <tr>
         <td>{{$client->name}}</td>
         <td> 
+          <a href="{{ url('show-user' , ['id' => $client->id]) }}">
             <button type="button" class="btn btn-primary">show</button>
 
+          </a>
         </td>
         <td>
             <button type="button" class="btn btn-success">edit</button>

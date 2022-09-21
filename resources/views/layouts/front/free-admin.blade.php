@@ -1,6 +1,6 @@
 @extends('layouts.admin.app')
 
-@section('test')
+@section('free-admin')
 
 
 <!-- Content Header (Page header) -->
