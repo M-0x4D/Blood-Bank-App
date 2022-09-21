@@ -70,9 +70,21 @@ class AdminController extends Controller
 
     }
 
-    function delete_role(Request $request)
+    function delete_role(Request $request , $id)
     {
+        $role=Role::find($id);
+        $role->delete();
+        $roles = Role::all();
+        return redirect('roles')->with('roles' , $roles);
 
+    }
+
+    function delete_user(Request $request , $id)
+    {
+        $user=Client::find($id);
+        $user->delete();
+        $clients = Role::all();
+        return redirect('roles')->with('clients' , $clients);
     }
 
 
@@ -126,6 +138,8 @@ class AdminController extends Controller
         return view('layouts.front.user-details' , compact('user'));
 
     }
+
+   
 
 
 

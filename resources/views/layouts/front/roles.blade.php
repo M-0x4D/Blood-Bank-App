@@ -66,7 +66,7 @@
             
         </td>
         <td>
-            <a href="{{ url('/') }}">
+            <a href="{{ url('delete-role' , ['id' => $role->id]) }}">
                 <button type="button" class="btn btn-danger">delete</button>
             </a>
         </td>

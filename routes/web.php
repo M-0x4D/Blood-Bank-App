@@ -34,6 +34,8 @@ Route::middleware('auth:client_web')->group(function(){
     Route::post('/edit-role', [AdminController::class, 'edit_role'])->name('edit-role');
     Route::get('/edit-role-view/{id}', [AdminController::class, 'edit_role_view'])->name('edit-role-vew');
     Route::get('/show-user/{id}', [AdminController::class, 'show_user'])->name('show-user');
+    Route::get('/delete-role/{id}', [AdminController::class, 'delete_role'])->name('delete-role');
+    Route::get('/delete-user/{id}', [AdminController::class, 'delete_user'])->name('delete-user');
 
 });
 

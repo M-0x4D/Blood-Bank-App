@@ -56,8 +56,11 @@
             <button type="button" class="btn btn-success">edit</button>
         </td>
         <td>
+          <a href="{{ url('delete-user' , ['id' => $client->id]) }}">
+
             <button type="button" class="btn btn-danger">delete</button>
 
+          </a>
         </td>
         
        
