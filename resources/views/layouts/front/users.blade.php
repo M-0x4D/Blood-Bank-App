@@ -25,7 +25,9 @@
         <div class="col-12">
           <div class="card">
             <div class="card-header">
-              <h3 class="card-title">DataTable with minimal features & hover style</h3>
+              <a href="{{ url('add-role-view') }}">
+                <button  type="button" class="btn btn-primary container">create user</button>
+            </a>
             </div>
  <!-- /.card-header -->
  <div class="card-body">
@@ -33,7 +35,7 @@
       <thead>
       <tr>
         <th>user name</th>
-        <th>add role</th>
+        <th>show</th>
         <th>edit</th>
         <th>delete</th>
         
@@ -45,7 +47,7 @@
       <tr>
         <td>{{$client->name}}</td>
         <td> 
-            <button type="button" class="btn btn-primary">add role</button>
+            <button type="button" class="btn btn-primary">show</button>
 
         </td>
         <td>
