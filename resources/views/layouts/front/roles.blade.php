@@ -40,7 +40,7 @@
       <thead>
       <tr>
         <th>role name</th>
-        
+        <th>show</th>
         <th>edit</th>
         <th>delete</th>
         
@@ -51,6 +51,13 @@
       @foreach ($roles as $role)
       <tr>
         <td>{{$role->name}}</td>
+
+        <td> 
+            <a href="{{ url('show-user' , ['id' => $role->id]) }}">
+              <button type="button" class="btn btn-primary">show</button>
+  
+            </a>
+          </td>
         
         <td>
             <a href="{{ url('edit-role-view' , ['id' => $role->id]) }}">

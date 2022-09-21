@@ -814,6 +814,7 @@
     @yield('content')
     @yield('create-user')
     @yield('user-details')
+    @yield('role-details')
     @yield('add-role')
     @yield('edit-role')
     @yield('roles')
