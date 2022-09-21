@@ -528,7 +528,7 @@
             </ul>
           </li>
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="{{ url('/users') }}" class="nav-link">
               <i class="nav-icon fas fa-book"></i>
               <p>
                 Users
@@ -554,10 +554,10 @@
             </ul>
           </li>
           <li class="nav-item menu-open">
-            <a href="#" class="nav-link active">
+            <a href="{{ url('/roles') }}" class="nav-link active">
               <i class="nav-icon far fa-plus-square"></i>
               <p>
-                Extras
+                roles
                 <i class="fas fa-angle-left right"></i>
               </p>
             </a>
@@ -812,8 +812,11 @@
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     @yield('content')
+    @yield('add-role')
+    @yield('edit-role')
+    @yield('roles')
     @yield('test')
-    @yield('users')
+    @yield('user')
   </div>
   <!-- /.content-wrapper -->
 

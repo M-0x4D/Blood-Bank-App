@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\models\Client;
+use App\Models\Role;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
@@ -15,15 +16,58 @@ class AdminController extends Controller
 
     public function index()
     {
-        return view('free-admin');
+        return view('layouts.front.free-admin');
     }
 
 
     public function users()
     {
         $clients = Client::all();
-        return view('users', compact('clients'));
+        return view('layouts.front.users', compact('clients'));
     }
+
+    public function roles()
+    {
+        $roles = Role::all();
+        return view('layouts.front.roles', compact('roles'));
+    }
+
+    function add_role_view()
+    {
+        return view('layouts.front.add-role-view');
+
+    }
+
+    function add_role(Request $request)
+    {
+        Role::create(['name' => $request->role_name , 'guard_name' => $request->guard_name]);
+        $roles = Role::all();
+        return redirect('roles')->with('roles' , $roles);
+
+    }
+
+    function edit_role_view(Request $request , $id)
+    {
+        $role_id = $id;
+        return view('layouts.front.edit-role-view' , compact('role_id'));        
+    }
+
+
+    function edit_role(Request $request , $id)
+    {
+
+        $role = Role::find($id);
+        $role->update(['name' => $request->role_name , 'guard_name' => $request->guard_name]);
+        $roles = Role::all();
+        return redirect('roles')->with('roles' , $roles);
+
+    }
+
+    function delete_role(Request $request)
+    {
+
+    }
+
 
 
    
