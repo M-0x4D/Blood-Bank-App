@@ -83,8 +83,8 @@ class AdminController extends Controller
     {
         $user=Client::find($id);
         $user->delete();
-        $clients = Role::all();
-        return redirect('roles')->with('clients' , $clients);
+        $clients = Client::all();
+        return redirect('users')->with('clients' , $clients);
     }
 
 
