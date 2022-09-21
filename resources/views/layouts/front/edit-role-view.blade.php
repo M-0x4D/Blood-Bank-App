@@ -5,6 +5,7 @@
 @section('edit-role')
     
 
+{{-- {!! Form::model($role_id, ['method' => 'POST','route' => ['edit-role', $role_id]]) !!} --}}
 
 <form method="POST" action="{{url('edit-role' , ['id' => $role_id])}}">
   @csrf
@@ -22,7 +23,6 @@
       <label class="form-check-label" for="exampleCheck1">Check me out</label>
     </div>
 
-    <input hidden name="{{$role_id}}"  id="exampleCheck1">
 
    
     <button type="submit" class="btn btn-primary">Submit</button>

@@ -56,13 +56,12 @@ class AdminController extends Controller
     function edit_role_view(Request $request , $id)
     {
         $role_id = $id;
-        return view('layouts.front.edit-role-view' , compact('role_id'));        
+        return view('layouts.front.edit-role-view')->with('role_id' , $role_id);        
     }
 
 
     function edit_role(Request $request , $id)
     {
-
         $role = Role::find($id);
         $role->update(['name' => $request->role_name , 'guard_name' => $request->guard_name]);
         $roles = Role::all();
