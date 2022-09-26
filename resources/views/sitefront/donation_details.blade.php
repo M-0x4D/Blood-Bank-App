@@ -17,7 +17,7 @@
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="index.html">الرئيسية</a></li>
                             <li class="breadcrumb-item"><a href="donation-requests.html">طلبات التبرع</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">طلب التبرع: احمد محمد</li>
+                            <li class="breadcrumb-item active" aria-current="page">طلب التبرع: {{$donation->patient_name}} </li>
                         </ol>
                     </nav>
                 </div>
@@ -31,7 +31,7 @@
                                             <p>الإسم</p>
                                         </div>
                                         <div class="light">
-                                            <p>احمد محمد</p>
+                                            <p>{{$donation->patient_name}}</p>
                                         </div>
                                     </div>
                                 </div>
@@ -43,7 +43,7 @@
                                             <p>فصيلة الدم</p>
                                         </div>
                                         <div class="light">
-                                            <p dir="ltr">A+</p>
+                                            <p dir="ltr">{{$donation->bloodtype_name}}</p>
                                         </div>
                                     </div>
                                 </div>
@@ -57,7 +57,7 @@
                                             <p>العمر</p>
                                         </div>
                                         <div class="light">
-                                            <p>28 عام</p>
+                                            <p>{{$donation->patient_age}} عام</p>
                                         </div>
                                     </div>
                                 </div>
@@ -69,7 +69,7 @@
                                             <p>عدد الأكياس المطلوبة</p>
                                         </div>
                                         <div class="light">
-                                            <p>3 أكياس</p>
+                                            <p>{{$donation->bags_num}} أكياس</p>
                                         </div>
                                     </div>
                                 </div>
@@ -83,7 +83,7 @@
                                             <p>المشفى</p>
                                         </div>
                                         <div class="light">
-                                            <p>الخير الدولية</p>
+                                            <p> {{$donation->hospital_name}}</p>
                                         </div>
                                     </div>
                                 </div>
@@ -95,7 +95,7 @@
                                             <p>رقم الجوال</p>
                                         </div>
                                         <div class="light">
-                                            <p>0245487878</p>
+                                            <p>{{$donation->patient_phone}}</p>
                                         </div>
                                     </div>
                                 </div>
@@ -109,7 +109,7 @@
                                             <p>عنوان المشفى</p>
                                         </div>
                                         <div class="special-light light">
-                                            <p>المنصورة- شارع عبد العزيز بجوار المرور المتفرع من الدولى</p>
+                                            <p>{{$donation->hospital_address}}</p>
                                         </div>
                                     </div>
                                 </div>
@@ -121,7 +121,7 @@
                     </div>
                     <div class="text">
                         <p>
-                            هذا النص هو مثال لنص يمكن أن يستبدل في نفس المساحة، لقد تم توليد هذا النص من مولد النص العربى، حيث يمكنك أن تولد مثل هذا النص أو العديد من النصوص الأخرى إضافة إلى زيادة عدد الحروف التى يولدها التطبيق. إذا كنت تحتاج إلى عدد أكبر من الفقرات يتيح لك مولد النص العربى زيادة عدد الفقرات كما تريد، النص لن يبدو مقسما ولا يحوي أخطاء لغوية، مولد النص العربى مفيد لمصممي المواقع على وجه الخصوص، حيث يحتاج العميل فى كثير من الأحيان أن يطلع على صورة حقيقية لتصميم الموقع. ومن هنا وجب على المصمم أن يضع نصوصا مؤقتة على التصميم ليظهر للعميل الشكل كاملاً،دور مولد النص العربى أن يوفر على المصمم عناء البحث عن نص بديل لا علاقة له بالموضوع الذى يتحدث عنه التصميم فيظهر بشكل لا يليق. هذا النص يمكن أن يتم تركيبه على أي تصميم دون مشكلة فلن يبدو وكأنه نص منسوخ، غير منظم، غير منسق، أو حتى غير مفهوم. لأنه مازال نصاً بديلاً ومؤقتاً.هذا النص هو مثال لنص يمكن أن يستبدل في نفس المساحة، لقد تم توليد هذا النص من مولد النص العربى، حيث يمكنك أن تولد مثل هذا
+                            {{$donation->details}}
                         </p>
                     </div>
                     <div class="location">

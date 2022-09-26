@@ -64,14 +64,14 @@
 
                             <div class="details">
                                 <div class="blood-type">
-                                    <h2 dir="ltr">{{$request->blood_type_id}}</h2>
+                                    <h2 dir="ltr">{{$request->bloodtype_name}}</h2>
                                 </div>
                                 <ul>
                                     <li><span>اسم الحالة:</span>{{$request->patient_name}}</li>
                                     <li><span>مستشفى:</span>{{$request->hospital_name}}</li>
-                                    <li><span>المدينة:</span> {{$request->city_id}}</li>
+                                    <li><span>المدينة:</span> {{$request->cityname}}</li>
                                 </ul>
-                                <a href="{{route('donation-details')}}">التفاصيل</a>
+                                <a href="{{route('donation-details' , ['id' => $request->id])}}">التفاصيل</a>
                             </div>
                             @endforeach
                             

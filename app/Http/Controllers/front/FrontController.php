@@ -5,6 +5,8 @@ namespace App\Http\Controllers\front;
 use Illuminate\Http\Request;
 use App\models\Post;
 use App\models\DonationRequest;
+use Illuminate\Support\Facades\DB;
+
 use App\Http\Controllers\Controller;
 
 
@@ -14,7 +16,8 @@ class FrontController extends Controller
 
     function index()
     {
-        return view('sitefront.index');
+        $posts = Post::all();
+        return view('sitefront.index')->with('posts' , $posts);
     }
 
     function register()
@@ -30,8 +33,16 @@ class FrontController extends Controller
 
     function donations()
     {
-        $requests = DonationRequest::all();
-        return view('sitefront.donations')->with('requests' , $requests);
+       // $requests = DonationRequest::all();
+
+       $requests = DB::table('donation_requests')->join('blood_types' , 'donation_requests.blood_type_id' , '=' , 'blood_types.id')
+       ->join('cities' , 'donation_requests.city_id' , '=' , 'cities.id')
+       ->select('donation_requests.id','donation_requests.patient_name','donation_requests.hospital_name','blood_types.name AS bloodtype_name' , 'cities.name AS cityname')
+       ->get();
+
+       // $bloodtype = $requests->bloodtype->name;
+       
+        return view('sitefront.donations')->with(['requests' => $requests ]);
     }
 
     function posts()
@@ -61,11 +72,22 @@ class FrontController extends Controller
     function post_details(Request $request)
     {
         $post = Post::find($request->id);
-        return view('sitefront.post_details')->with('post' , $post);
+        $categories = $post->category->name;
+        return view('sitefront.post_details')->with(['post' => $post , 'categories' => $categories]);
     }
-    function donation_details()
+    function donation_details(Request $request)
     {
-        return view('sitefront.donation_details');
+        $donation = DB::table('donation_requests' )->where('donation_requests.id' , '=' , $request->id)
+          ->join('blood_types' , 'donation_requests.blood_type_id' , '=' , 'blood_types.id')
+         ->join('cities' , 'donation_requests.city_id' , '=' , 'cities.id')
+        ->select('donation_requests.id','donation_requests.patient_age',
+        'donation_requests.patient_name','donation_requests.hospital_name',
+        'blood_types.name AS bloodtype_name' , 'cities.name AS cityname' , 'donation_requests.bags_num' ,
+        'donation_requests.hospital_address' , 'donation_requests.details' , 'donation_requests.patient_phone' ,
+        'donation_requests.latitude' , 'donation_requests.longitude')
+        ->first();
+
+        return view('sitefront.donation_details')->with(['donation' => $donation]);
     }
     function create_donation()
     {

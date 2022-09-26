@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Api;
 
+
+use Illuminate\Support\Facades\DB;
 use App\ClientPost;
 use App\models\BloodType;
 use App\models\Category;
@@ -416,6 +418,27 @@ class Maincontroller extends Controller
 
        $res = Storage::disk('local')->put( $filename ,$file );
        return "uploaded";
+    }
+
+
+
+    function test()
+    {
+        // $requests = DB::table('donation_requests')->join('blood_types' , 'donation_requests.blood_type_id' , '=' , 'blood_types.id')
+        // ->join('cities' , 'donation_requests.city_id' , '=' , 'cities.id')
+        // ->select('donation_requests.patient_name','donation_requests.hospital_name','blood_types.name' , 'cities.name AS cityname')
+        // ->get();
+
+        $donation = DB::table('donation_requests' )->where('donation_requests.id' , '=' , 2)
+          ->join('blood_types' , 'donation_requests.blood_type_id' , '=' , 'blood_types.id')
+         ->join('cities' , 'donation_requests.city_id' , '=' , 'cities.id')
+        ->select('donation_requests.id','donation_requests.patient_age',
+        'donation_requests.patient_name','donation_requests.hospital_name',
+        'blood_types.name AS bloodtype_name' , 'cities.name AS cityname' , 'donation_requests.bags_num' ,
+        'donation_requests.hospital_address' , 'donation_requests.details' , 'donation_requests.patient_phone' ,
+        'donation_requests.latitude' , 'donation_requests.longitude')
+        ->first();
+        return $donation;
     }
     
 }

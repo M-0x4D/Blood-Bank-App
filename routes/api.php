@@ -30,6 +30,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::prefix('v1')->group( function()
 {
+    Route::post('test', [Maincontroller::class , 'test']);
+
     
     Route::middleware((['auth:client']))->group(function(){
         Route::post('posts', [Maincontroller::class , 'posts']);
