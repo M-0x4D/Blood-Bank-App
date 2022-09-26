@@ -3,7 +3,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Authcontroller;
+use App\Http\Controllers\Api\Authcontroller;
 
 use App\Http\Controllers\Maincontroller;
 
@@ -31,7 +31,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::prefix('v1')->group( function()
 {
     
-    Route::middleware((['auth:client' , 'role:admin']))->group(function(){
+    Route::middleware((['auth:client']))->group(function(){
         Route::post('posts', [Maincontroller::class , 'posts']);
         Route::post('create-post', [Maincontroller::class , 'create_post']);    
 

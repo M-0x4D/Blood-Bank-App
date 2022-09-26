@@ -4,6 +4,12 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Authcontroller;
+use App\Http\Controllers\FrontController;
+use App\Http\Controllers\WebAuth;
+use App\Http\Controllers\WebLogic;
+
+
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -22,6 +28,26 @@ Route::get('/', function () {
 Auth::routes();
 
 
+Route::get('/index', [FrontController::class, 'index'])->name('index');
+Route::get('/register', [FrontController::class, 'register'])->name('register');
+Route::get('/signin', [FrontController::class, 'signin'])->name('signin');
+Route::get('/donations', [FrontController::class, 'donations'])->name('donations');
+Route::get('/posts', [FrontController::class, 'posts'])->name('posts');
+Route::get('/who-are-us', [FrontController::class, 'who_are_us'])->name('whoareus');
+Route::get('/contact-us', [FrontController::class, 'contact_us'])->name('contactus');
+Route::get('/post-details', [FrontController::class, 'post_details'])->name('post-details');
+Route::get('/donation-details', [FrontController::class, 'donation_details'])->name('donation-details');
+Route::get('/create-donation', [FrontController::class, 'create_donation'])->name('create-donation');
+Route::get('/about-app', [FrontController::class, 'about_app'])->name('about-app');
+Route::post('/web-register', [WebAuth::class, 'register'])->name('web-register');
+Route::post('/web-login', [WebAuth::class, 'login'])->name('web-login');
+
+Route::middleware('auth:client_web')->group(function(){
+
+
+});
+
+
 Route::middleware('auth:client_web')->group(function(){
 
     Route::get('/free-admin', [AdminController::class, 'index']);
@@ -36,6 +62,7 @@ Route::middleware('auth:client_web')->group(function(){
     Route::get('/show-user/{id}', [AdminController::class, 'show_user'])->name('show-user');
     Route::get('/delete-role/{id}', [AdminController::class, 'delete_role'])->name('delete-role');
     Route::get('/delete-user/{id}', [AdminController::class, 'delete_user'])->name('delete-user');
+    
 
 });
 

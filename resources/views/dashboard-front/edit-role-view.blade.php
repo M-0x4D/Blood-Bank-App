@@ -7,11 +7,11 @@
 
 {{-- {!! Form::model($role_id, ['method' => 'POST','route' => ['edit-role', $role_id]]) !!} --}}
 
-<form method="POST" action="{{url('edit-role' , ['id' => $role_id])}}">
+<form method="POST" action="{{url('edit-role' )}}">
   @csrf
     <div class="form-group">
       <label >Role name</label>
-      <input name="role_name" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter role name">
+      <input name="role_name" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter role name" >
       <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
     </div>
     <div class="form-group">
@@ -23,6 +23,7 @@
       <label class="form-check-label" for="exampleCheck1">Check me out</label>
     </div>
 
+    <input hidden name="role_id" value="{{$role->id}}" class="form-check-input" id="exampleCheck1">
 
    
     <button type="submit" class="btn btn-primary">Submit</button>

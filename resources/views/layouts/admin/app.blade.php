@@ -675,7 +675,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{{asset('starter.html" class=')}}"nav-link">
+                <a href="{{asset('starter.html')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Starter Page</p>
                 </a>
@@ -707,7 +707,7 @@
           </li>
           <li class="nav-header">MISCELLANEOUS</li>
           <li class="nav-item">
-            <a href="{{asset('iframe.html" class=')}}"nav-link">
+            <a href="" class="nav-link">
               <i class="nav-icon fas fa-ellipsis-h"></i>
               <p>Tabbed IFrame Plugin</p>
             </a>

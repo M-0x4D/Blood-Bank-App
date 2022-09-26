@@ -23,25 +23,25 @@ class AdminController extends Controller
 
     public function index()
     {
-        return view('layouts.front.free-admin');
+        return view('dashboard-front.free-admin');
     }
 
 
     public function users()
     {
         $clients = Client::all();
-        return view('layouts.front.users', compact('clients'));
+        return view('dashboard-front.users', compact('clients'));
     }
 
     public function roles()
     {
         $roles = Role::all();
-        return view('layouts.front.roles', compact('roles'));
+        return view('dashboard-front.roles', compact('roles'));
     }
 
     function add_role_view()
     {
-        return view('layouts.front.add-role-view');
+        return view('dashboard-front.add-role-view');
 
     }
 
@@ -55,14 +55,15 @@ class AdminController extends Controller
 
     function edit_role_view(Request $request , $id)
     {
-        $role_id = $id;
-        return view('layouts.front.edit-role-view')->with('role_id' , $role_id);        
+        $role = Role::find($id);
+        
+        return view('dashboard-front.edit-role-view')->with('role' , $role);        
     }
 
 
-    function edit_role(Request $request , $id)
+    function edit_role(Request $request)
     {
-        $role = Role::find($id);
+        $role = Role::find($request->role_id);
         $role->update(['name' => $request->role_name , 'guard_name' => $request->guard_name]);
         $roles = Role::all();
         return redirect('roles')->with('roles' , $roles);
@@ -134,7 +135,7 @@ class AdminController extends Controller
     function show_user(Request $request , $id)
     {
         $user = User::find($id);
-        return view('layouts.front.user-details' , compact('user'));
+        return view('dashboard-front.user-details' , compact('user'));
 
     }
 
