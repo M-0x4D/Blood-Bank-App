@@ -2,11 +2,11 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
-use App\Http\Controllers\AdminController;
-use App\Http\Controllers\Authcontroller;
-use App\Http\Controllers\FrontController;
-use App\Http\Controllers\WebAuth;
-use App\Http\Controllers\WebLogic;
+use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Api\Authcontroller;
+use App\Http\Controllers\front\FrontController;
+use App\Http\Controllers\front\WebAuth;
+use App\Http\Controllers\front\WebLogic;
 
 
 
@@ -28,6 +28,8 @@ Route::get('/', function () {
 Auth::routes();
 
 
+//site routes
+
 Route::get('/index', [FrontController::class, 'index'])->name('index');
 Route::get('/register', [FrontController::class, 'register'])->name('register');
 Route::get('/signin', [FrontController::class, 'signin'])->name('signin');
@@ -47,6 +49,8 @@ Route::middleware('auth:client_web')->group(function(){
 
 });
 
+
+// admin routes
 
 Route::middleware('auth:client_web')->group(function(){
 

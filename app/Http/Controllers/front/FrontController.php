@@ -1,10 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\front;
 
 use Illuminate\Http\Request;
 use App\models\Post;
 use App\models\DonationRequest;
+use App\Http\Controllers\Controller;
+
 
 class FrontController extends Controller
 {
