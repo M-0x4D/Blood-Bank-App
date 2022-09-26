@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use App\models\Client;
 use App\Models\Role;
@@ -13,6 +13,7 @@ use App\Mail\ResetPassword;
 use App\Models\User;
 use App\Rules\custom_validation;
 use App\Rules\password_validation;
+use App\Http\Controllers\Controller;
 
 
 
