@@ -11,10 +11,9 @@ use Spatie\Permission\Traits\HasRoles;
 
 class Client extends Authenticable 
 {
-
-
     use HasRoles;
 
+    public $guard_name = 'api';
     protected $table = 'clients';
     public $timestamps = true;
     protected $fillable = array('phone', 'email', 'blood_type_id', 'password', 'date_of_birth', 'last_donation_date', 'name', 'pin_code', 'city_id' , 'api_token' , 'governrate_id');

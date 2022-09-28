@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
-
+use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use App\ClientPost;
 use App\models\BloodType;
@@ -422,24 +422,60 @@ class Maincontroller extends Controller
 
 
 
-    function test()
+    function test(Request $request)
     {
         // $requests = DB::table('donation_requests')->join('blood_types' , 'donation_requests.blood_type_id' , '=' , 'blood_types.id')
         // ->join('cities' , 'donation_requests.city_id' , '=' , 'cities.id')
         // ->select('donation_requests.patient_name','donation_requests.hospital_name','blood_types.name' , 'cities.name AS cityname')
         // ->get();
 
-        $donation = DB::table('donation_requests' )->where('donation_requests.id' , '=' , 2)
-          ->join('blood_types' , 'donation_requests.blood_type_id' , '=' , 'blood_types.id')
-         ->join('cities' , 'donation_requests.city_id' , '=' , 'cities.id')
-        ->select('donation_requests.id','donation_requests.patient_age',
-        'donation_requests.patient_name','donation_requests.hospital_name',
-        'blood_types.name AS bloodtype_name' , 'cities.name AS cityname' , 'donation_requests.bags_num' ,
-        'donation_requests.hospital_address' , 'donation_requests.details' , 'donation_requests.patient_phone' ,
-        'donation_requests.latitude' , 'donation_requests.longitude')
-        ->first();
+        // $donation = DB::table('donation_requests' )->where('donation_requests.id' , '=' , 2)
+        //   ->join('blood_types' , 'donation_requests.blood_type_id' , '=' , 'blood_types.id')
+        //  ->join('cities' , 'donation_requests.city_id' , '=' , 'cities.id')
+        // ->select('donation_requests.id','donation_requests.patient_age',
+        // 'donation_requests.patient_name','donation_requests.hospital_name',
+        // 'blood_types.name AS bloodtype_name' , 'cities.name AS cityname' , 'donation_requests.bags_num' ,
+        // 'donation_requests.hospital_address' , 'donation_requests.details' , 'donation_requests.patient_phone' ,
+        // 'donation_requests.latitude' , 'donation_requests.longitude')
+        // ->first();
+
+
+
+        $validator = validator()->make($request->all() , [
+
+            'email' => 'required',
+            'password' => 'required',
+            
+        ]);
+
+
+        if ($validator->fails()) {
+            # code...
+             return response()->json(['msg'=>"validation error"]);
+        }
+
+        $credentials = [
+        'email' => $request->email ,
+        'password' => $request->password ,
+        ];
+
+        if(Auth::attempt($credentials))
+        {
+            
+            $clients = User::all();
+            return  $clients;//redirect()->route('users')->with('clients' , $clients);
+
+        }
+        else
+        {
+           return redirect('login');
+        }
         return $donation;
     }
+
+
+
+    
     
 }
 

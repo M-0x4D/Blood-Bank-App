@@ -132,6 +132,18 @@ class AdminController extends Controller
 
 
 
+    function register_admin(Request $request)
+    {
+        $user = User::create($request->all());
+        return $user;
+    }
+
+
+
+    
+
+
+
 
     function show_user(Request $request , $id)
     {
@@ -143,38 +155,31 @@ class AdminController extends Controller
    
 
 
+    function login_view()
+    {
+        return view('auth.login');
+    }
 
    
 
 
 
-    function login(Request $request)
+    function admin_login(Request $request)
     {
-        $validator = validator()->make($request->all() , [
 
-            'phone' => 'required',
+        request()->validate([
+            'email' => 'required',
             'password' => 'required',
+            ]);
+     
+            $credentials = $request->only('email', 'password');
+            if (Auth::guard('web')->attempt($credentials)) 
+            {
             
-        ]);
+                $clients = User::all();
+                return redirect()->route('users')->with('clients' , $clients);
 
-
-        if ($validator->fails()) {
-            # code...
-             return response()->json(['msg'=>"validation error"]);
-        }
-
-        $credentials = [
-        'phone' => $request->phone ,
-        'password' => $request->password ,
-        ];
-
-        if(Auth::guard('client_web')->attempt($credentials))
-        {
-            
-            $clients = Client::all();
-            return redirect()->route('users')->with('clients' , $clients);
-
-        }
+            }
         else
         {
            return redirect('login');
@@ -183,11 +188,15 @@ class AdminController extends Controller
 
     }
 
+
+
     public function logout()
     {
-        Auth::guard('client_web')->logout();
+        Auth::guard('web')->logout();
         return redirect('login');
     }
+
+
 
     public function test()
     {

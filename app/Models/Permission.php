@@ -15,14 +15,6 @@ class Permission extends Model
     protected $fillable = array('name', 'guard_name');
 
 
-    //! client ==> one relation 
-
-    public function permission_client()
-    {
-        return $this->belongsToMany('App\models\Client' , 'model_has_permissions');
-    }
-
-
 
     //! role ==> one relation 
     

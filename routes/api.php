@@ -4,6 +4,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\Authcontroller;
+use App\Http\Controllers\Admin\AdminController;
 
 use App\Http\Controllers\Api\Maincontroller;
 
@@ -31,6 +32,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::prefix('v1')->group( function()
 {
     Route::post('test', [Maincontroller::class , 'test']);
+    Route::post('register-admin', [AdminController::class , 'register_admin']);
 
     
     Route::middleware((['auth:client']))->group(function(){

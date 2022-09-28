@@ -12,17 +12,17 @@
                         @csrf
 
                         <div class="row mb-3">
-                            <label for="phone" class="col-md-4 col-form-label text-md-end">phone</label>
+                            <label class="col-md-4 col-form-label text-md-end">email</label>
 
                             <div class="col-md-6">
-                                <input id="phone" name="phone" class="form-control" autocomplete="tel" >
+                                <input id="email" name="email" class="form-control"  >
 
                                 
                             </div>
                         </div>
 
                         <div class="row mb-3">
-                            <label for="password" class="col-md-4 col-form-label text-md-end">{{ __('Password') }}</label>
+                            <label for="password" class="col-md-4 col-form-label text-md-end">Password</label>
 
                             <div class="col-md-6">
                                 <input id="password" name="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
@@ -38,7 +38,7 @@
                         <div class="row mb-3">
                             <div class="col-md-6 offset-md-4">
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
+                                    <input class="form-check-input" type="checkbox" name="remember" id="remember">
 
                                     <label class="form-check-label" for="remember">
                                         {{ __('Remember Me') }}
