@@ -283,11 +283,31 @@
             </a>
             
           </li>
+          <li class="nav-item">
+            <a href="{{ route('admin-users') }}" class="nav-link">
+              <i class=" fas"></i>
+              <p>
+               Admin Users
+                <i class="fas fa-angle right"></i>
+              </p>
+            </a>
+            
+          </li>
           <li class="nav-item ">
             <a href="{{ url('/roles') }}" class="nav-link ">
               <i class="nav-icon  "></i>
               <p>
                 roles
+                <i class=" right"></i>
+              </p>
+            </a>
+            
+          </li>
+          <li class="nav-item ">
+            <a href="{{ route('permissions') }}" class="nav-link ">
+              <i class="nav-icon  "></i>
+              <p>
+                Permissions
                 <i class=" right"></i>
               </p>
             </a>

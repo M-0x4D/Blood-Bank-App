@@ -17,10 +17,17 @@
       <label >Guard name</label>
       <input name="guard_name"  class="form-control" id="exampleInputPassword1" placeholder="Enter guard name">
     </div>
-    <div class="form-check">
-      <input type="checkbox" class="form-check-input" id="exampleCheck1">
-      <label class="form-check-label" for="exampleCheck1">Check me out</label>
-    </div>
+    
+    <label >Permissions</label>
+    @foreach($permissions as $permission)
+
+<div class="form-check">
+<input name="permission_id[]" class="form-check-input" type="checkbox" value="{{$permission->id}}" id="flexCheckDefault">
+<label class="form-check-label" for="flexCheckChecked">
+{{$permission->name}}
+</label>
+</div>
+@endforeach
     <button type="submit" class="btn btn-primary">Submit</button>
   </form>
 

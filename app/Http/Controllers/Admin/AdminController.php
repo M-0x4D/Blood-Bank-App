@@ -14,6 +14,8 @@ use App\Models\User;
 use App\Rules\custom_validation;
 use App\Rules\password_validation;
 use App\Http\Controllers\Controller;
+use App\models\Permission;
+use App\models\RolePermission;
 
 
 
@@ -34,22 +36,50 @@ class AdminController extends Controller
         return view('dashboard-front.users', compact('clients'));
     }
 
+
+    public function admin_users()
+    {
+        $users = User::all();
+        return view('dashboard-front.admin_users', compact('users'));
+    }
+
     public function roles()
     {
         $roles = Role::all();
         return view('dashboard-front.roles', compact('roles'));
     }
 
+
+    public function permissions()
+    {
+        $permissions = Permission::all();
+        return view('dashboard-front.permissions', compact('permissions'));
+    }
+
+
+
+
+
     function add_role_view()
     {
-        return view('dashboard-front.add-role-view');
+        $permissions = Permission::all();
+        return view('dashboard-front.add-role-view')->with(['permissions' => $permissions]);
 
     }
 
     function add_role(Request $request)
     {
-        Role::create(['name' => $request->role_name , 'guard_name' => $request->guard_name]);
+        $role = Role::create(['name' => $request->role_name , 'guard_name' => $request->guard_name]);
         $roles = Role::all();
+
+        $permission =new  Permission();
+        $roleId = $role->id;
+        $permissions = $request->get('permission_id');
+        foreach ($permissions as $per) {    
+            
+            $permission->permission_role()->attach($roleId , ['permission_id' => $per ]);
+            
+        }
         return redirect('roles')->with('roles' , $roles);
 
     }
@@ -57,9 +87,15 @@ class AdminController extends Controller
     function edit_role_view(Request $request , $id)
     {
         $role = Role::find($id);
-        
-        return view('dashboard-front.edit-role-view')->with('role' , $role);        
+        $permissions = Permission::all();
+        return view('dashboard-front.edit-role-view')->with(['role' => $role , 'permissions' => $permissions]);        
     }
+
+
+
+
+
+
 
 
     function edit_role(Request $request)
@@ -67,9 +103,37 @@ class AdminController extends Controller
         $role = Role::find($request->role_id);
         $role->update(['name' => $request->role_name , 'guard_name' => $request->guard_name]);
         $roles = Role::all();
+        $permission =new  Permission();
+        $roleId = $request->role_id;
+        $permissions = $request->get('permission_id'); //permission_id;//
+        $all_permissions = RolePermission::where('role_id' , $request->role_id)->get();
+
+        if ($all_permissions) {
+            
+            foreach ($all_permissions as $key) {
+                
+                RolePermission::where('role_id' , $request->role_id)->delete();
+                
+            }
+        }
+        
+        foreach ($permissions as $per) {    
+            
+            $permission->permission_role()->attach($roleId , ['permission_id' => $per ]);
+            
+        }
+
+
         return redirect('roles')->with('roles' , $roles);
 
     }
+
+
+
+
+
+
+
 
     function delete_role(Request $request , $id)
     {

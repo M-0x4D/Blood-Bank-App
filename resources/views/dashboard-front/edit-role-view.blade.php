@@ -18,10 +18,17 @@
       <label >Guard name</label>
       <input name="guard_name"  class="form-control" id="exampleInputPassword1" placeholder="Enter guard name">
     </div>
+
+    <label >permissions</label>
+    @foreach($permissions as $permission)
+
     <div class="form-check">
-      <input type="checkbox" class="form-check-input" id="exampleCheck1">
-      <label class="form-check-label" for="exampleCheck1">Check me out</label>
-    </div>
+  <input name="permission_id[]" class="form-check-input" type="checkbox" value="{{$permission->id}}" id="flexCheckDefault">
+  <label class="form-check-label" for="flexCheckChecked">
+    {{$permission->name}}
+  </label>
+</div>
+    @endforeach
 
     <input hidden name="role_id" value="{{$role->id}}" class="form-check-input" id="exampleCheck1">
 
