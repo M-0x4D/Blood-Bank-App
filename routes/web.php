@@ -8,6 +8,8 @@ use App\Http\Controllers\Admin\CitiesController;
 use App\Http\Controllers\Admin\BloodTypesController;
 use App\Http\Controllers\Admin\GovernratesController;
 use App\Http\Controllers\Admin\BusinessController;
+use App\Http\Controllers\Admin\PostsController;
+use App\Http\Controllers\Admin\DonationController;
 use App\Http\Controllers\Api\Authcontroller;
 use App\Http\Controllers\front\FrontController;
 use App\Http\Controllers\front\WebAuth;
@@ -106,7 +108,34 @@ Route::post('/edit-category', [CategoriesController::class, 'edit'])->name('edit
 Route::get('/delete-category', [CategoriesController::class, 'delete'])->name('delete-category');
 Route::get('/edit-category-view', [CategoriesController::class, 'edit_category_view'])->name('edit-category-view');
 
+
+// posts
+Route::get('/posts', [PostsController::class, 'return_posts'])->name('posts');
+Route::get('/create-city-view', [PostsController::class, 'create_city_view'])->name('create-city-view');
+Route::post('/create-city', [PostsController::class, 'create'])->name('create-city');
+Route::post('/show-city', [PostsController::class, 'show'])->name('show-city');
+Route::post('/edit-city', [PostsController::class, 'edit'])->name('edit-city');
+Route::get('/delete-city', [PostsController::class, 'delete'])->name('delete-city');
+Route::get('/edit-city-view', [PostsController::class, 'edit_city_view'])->name('edit-city-view');
+
+
+
+
+
+
+
+// donations
+Route::get('/donations', [DonationController::class, 'return_donations'])->name('donations');
+Route::get('/create-city-view', [DonationController::class, 'create_city_view'])->name('create-city-view');
+Route::post('/create-city', [DonationController::class, 'create'])->name('create-city');
+Route::post('/show-city', [DonationController::class, 'show'])->name('show-city');
+Route::post('/edit-city', [DonationController::class, 'edit'])->name('edit-city');
+Route::get('/delete-city', [DonationController::class, 'delete'])->name('delete-city');
+Route::get('/edit-city-view', [DonationController::class, 'edit_city_view'])->name('edit-city-view');
+
+
 // security
+Route::get('/custom-login', [AdminController::class, 'custom_login'])->name('custom-login');
 Route::get('/users', [AdminController::class, 'users'])->name('users');
 Route::get('/admin-users', [AdminController::class, 'admin_users'])->name('admin-users');
 Route::get('/roles', [AdminController::class, 'roles'])->name('roles');

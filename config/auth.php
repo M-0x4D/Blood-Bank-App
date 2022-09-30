@@ -59,6 +59,11 @@ return [
             'provider' => 'clients',
             
         ],
+        'test' => [
+            'driver' => 'session',
+            'provider' => 'tests',
+            
+        ],
     ],
 
     /*
@@ -87,6 +92,10 @@ return [
         'clients' => [
             'driver' => 'eloquent',
             'model' => App\Models\Client::class,
+        ],
+        'tests' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Admin::class,
         ],
 
         // 'users' => [

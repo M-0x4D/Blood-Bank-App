@@ -268,6 +268,26 @@
             </a>
             
           </li>
+          <li class="nav-item">
+            <a href="{{route('posts')}}" class="nav-link">
+              <i class="nav-icon"></i>
+              <p>
+                Posts
+                <i class=" right"></i>
+              </p>
+            </a>
+            
+          </li>
+          <li class="nav-item">
+            <a href="{{route('donations')}}" class="nav-link">
+              <i class="nav-icon"></i>
+              <p>
+                Donation requests
+                <i class=" right"></i>
+              </p>
+            </a>
+            
+          </li>
           
           <li class="nav-header ">Privilledges</li>
           

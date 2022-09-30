@@ -16,6 +16,7 @@ use App\Rules\password_validation;
 use App\Http\Controllers\Controller;
 use App\models\Permission;
 use App\models\RolePermission;
+use App\models\Admin;
 
 
 
@@ -66,6 +67,10 @@ class AdminController extends Controller
         return view('dashboard-front.add-role-view')->with(['permissions' => $permissions]);
 
     }
+
+
+
+
 
     function add_role(Request $request)
     {
@@ -198,7 +203,7 @@ class AdminController extends Controller
 
     function register_admin(Request $request)
     {
-        $user = User::create($request->all());
+        $user = Admin::create($request->all());
         return $user;
     }
 
@@ -227,6 +232,12 @@ class AdminController extends Controller
    
 
 
+    function custom_login()
+    {
+        return view('dashboard-front.admin_login');
+    }
+
+
 
     function admin_login(Request $request)
     {
@@ -237,7 +248,7 @@ class AdminController extends Controller
             ]);
      
             $credentials = $request->only('email', 'password');
-            if (Auth::guard('web')->attempt($credentials)) 
+            if (Auth::guard('test')->attempt(['email' => $request->email , 'password' => $request->password])) 
             {
             
                 $clients = User::all();
@@ -246,7 +257,7 @@ class AdminController extends Controller
             }
         else
         {
-           return redirect('login');
+           return redirect('custom-login');
         }
     
 
