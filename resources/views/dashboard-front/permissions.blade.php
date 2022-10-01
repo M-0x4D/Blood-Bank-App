@@ -59,6 +59,8 @@
           </td>
         
         <td>
+        <a href="{{ route('edit-permission-view' , ['id' => $permission->id]) }}">
+
                 <button type="button" class="btn btn-success">edit</button>
             </a>
             

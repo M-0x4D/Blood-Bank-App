@@ -53,6 +53,8 @@
           </a>
         </td>
         <td>
+        <a href="{{ route('edit-user-view' , ['id' => $client->id]) }}">
+
             <button type="button" class="btn btn-success">edit</button>
         </td>
         <td>

@@ -10,6 +10,9 @@ use App\Http\Controllers\Admin\GovernratesController;
 use App\Http\Controllers\Admin\BusinessController;
 use App\Http\Controllers\Admin\PostsController;
 use App\Http\Controllers\Admin\DonationController;
+use App\Http\Controllers\Admin\UsersController;
+use App\Http\Controllers\Admin\AdminUsersController;
+use App\Http\Controllers\Admin\PermissionsController;
 use App\Http\Controllers\Api\Authcontroller;
 use App\Http\Controllers\front\FrontController;
 use App\Http\Controllers\front\WebAuth;
@@ -141,6 +144,65 @@ Route::get('/posts', [PostsController::class, 'return_posts'])->name('posts');
 
 
 
+ // users
+ Route::get('/users', [AdminController::class, 'users'])->name('users');
+ // Route::get('/create-city-view', [PostsController::class, 'create_city_view'])->name('create-city-view');
+// Route::post('/create-city', [PostsController::class, 'create'])->name('create-city');
+// Route::post('/show-city', [PostsController::class, 'show'])->name('show-city');
+ Route::post('/edit-user', [UsersController::class, 'edit'])->name('edit-user');
+// Route::get('/delete-city', [PostsController::class, 'delete'])->name('delete-city');
+Route::get('/edit-user-view', [UsersController::class, 'edit_user_view'])->name('edit-user-view');
+Route::get('/create-user-view', [AdminController::class, 'create_user_view'])->name('create-user-view');
+Route::post('/create-user', [AdminController::class, 'create_user'])->name('create-user');
+Route::get('/show-user/{id}', [AdminController::class, 'show_user'])->name('show-user');
+Route::get('/delete-user/{id}', [AdminController::class, 'delete_user'])->name('delete-user');
+
+
+
+
+
+
+ // admin users
+ Route::get('/admin-users', [AdminController::class, 'admin_users'])->name('admin-users');
+ // Route::get('/create-city-view', [PostsController::class, 'create_city_view'])->name('create-city-view');
+// Route::post('/create-city', [PostsController::class, 'create'])->name('create-city');
+// Route::post('/show-city', [PostsController::class, 'show'])->name('show-city');
+ Route::post('/edit-admin-user', [AdminUsersController::class, 'edit'])->name('edit-admin-user');
+// Route::get('/delete-city', [PostsController::class, 'delete'])->name('delete-city');
+ Route::get('/edit-admin-user-view', [AdminUsersController::class, 'edit_admin_user_view'])->name('edit-admin-user-view');
+ 
+ 
+
+
+
+
+
+
+ // roles
+ Route::get('/roles', [AdminController::class, 'roles'])->name('roles');
+ Route::post('/add-role', [AdminController::class, 'add_role'])->name('add-role');
+ Route::get('/add-role-view', [AdminController::class, 'add_role_view'])->name('add-role-vew');
+ Route::post('/edit-role', [AdminController::class, 'edit_role'])->name('edit-role');
+ Route::get('/edit-role-view/{id}', [AdminController::class, 'edit_role_view'])->name('edit-role-vew');
+ Route::get('/delete-role/{id}', [AdminController::class, 'delete_role'])->name('delete-role');
+
+
+
+ 
+
+
+ 
+ // permissions
+ Route::get('/permissions', [AdminController::class, 'permissions'])->name('permissions');
+ // Route::get('/create-city-view', [PostsController::class, 'create_city_view'])->name('create-city-view');
+// Route::post('/create-city', [PostsController::class, 'create'])->name('create-city');
+// Route::post('/show-city', [PostsController::class, 'show'])->name('show-city');
+ Route::post('/edit-permission', [PermissionsController::class, 'edit'])->name('edit-permission');
+// Route::get('/delete-city', [PostsController::class, 'delete'])->name('delete-city');
+ Route::get('/edit-permission-view', [PermissionsController::class, 'edit_permission_view'])->name('edit-permission-view');
+
+
+
 
 
 
@@ -154,28 +216,13 @@ Route::get('/donations', [DonationController::class, 'return_donations'])->name(
 // Route::get('/delete-city', [DonationController::class, 'delete'])->name('delete-city');
  Route::get('/edit-donation-view', [DonationController::class, 'edit_donation_view'])->name('edit-donation-view');
 
-
-// security
-
-Route::get('/admin-users', [AdminController::class, 'admin_users'])->name('admin-users');
-Route::get('/roles', [AdminController::class, 'roles'])->name('roles');
-Route::get('/permissions', [AdminController::class, 'permissions'])->name('permissions');
-Route::get('/free-admin', [AdminController::class, 'index']);
-Route::get('/create-user-view', [AdminController::class, 'create_user_view'])->name('create-user-view');
-Route::post('/create-user', [AdminController::class, 'create_user'])->name('create-user');
-Route::post('/add-role', [AdminController::class, 'add_role'])->name('add-role');
-Route::get('/add-role-view', [AdminController::class, 'add_role_view'])->name('add-role-vew');
-Route::post('/edit-role', [AdminController::class, 'edit_role'])->name('edit-role');
-Route::get('/edit-role-view/{id}', [AdminController::class, 'edit_role_view'])->name('edit-role-vew');
-Route::get('/show-user/{id}', [AdminController::class, 'show_user'])->name('show-user');
-Route::get('/delete-role/{id}', [AdminController::class, 'delete_role'])->name('delete-role');
-Route::get('/delete-user/{id}', [AdminController::class, 'delete_user'])->name('delete-user');
 });
+
+
 
 Route::post('/admin-login', [AdminController::class, 'admin_login'])->name('admin-login');
 
 Route::get('/custom-login', [AdminController::class, 'custom_login'])->name('custom-login');
-Route::get('/users', [AdminController::class, 'users'])->name('users');
 
 //Route::get('/login', [AdminController::class , 'login_view'])->name('login');
 Route::get('/logout', [AdminController::class , 'logout'])->name('logout');
@@ -183,3 +230,4 @@ Route::get('/logout', [AdminController::class , 'logout'])->name('logout');
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::post('/test', [AdminController::class, 'test']);
+Route::get('/free-admin', [AdminController::class, 'index']);
