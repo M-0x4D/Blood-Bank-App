@@ -40,7 +40,7 @@ class AdminController extends Controller
 
     public function admin_users()
     {
-        $users = User::all();
+        $users = Admin::all();
         return view('dashboard-front.admin_users', compact('users'));
     }
 
@@ -203,6 +203,7 @@ class AdminController extends Controller
 
     function register_admin(Request $request)
     {
+        $request->merge(["password" => bcrypt($request->password)]);
         $user = Admin::create($request->all());
         return $user;
     }
@@ -248,7 +249,7 @@ class AdminController extends Controller
             ]);
      
             $credentials = $request->only('email', 'password');
-            if (Auth::guard('test')->attempt(['email' => $request->email , 'password' => $request->password])) 
+            if (Auth::guard('admin')->attempt(['email' => $request->email , 'password' => $request->password])) 
             {
             
                 $clients = User::all();
@@ -267,8 +268,8 @@ class AdminController extends Controller
 
     public function logout()
     {
-        Auth::guard('web')->logout();
-        return redirect('login');
+        Auth::guard('admin')->logout();
+        return redirect('custom-login');
     }
 
 

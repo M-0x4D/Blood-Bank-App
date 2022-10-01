@@ -59,9 +59,9 @@ return [
             'provider' => 'clients',
             
         ],
-        'test' => [
+        'admin' => [
             'driver' => 'session',
-            'provider' => 'tests',
+            'provider' => 'admins',
             
         ],
     ],
@@ -93,7 +93,7 @@ return [
             'driver' => 'eloquent',
             'model' => App\Models\Client::class,
         ],
-        'tests' => [
+        'admins' => [
             'driver' => 'eloquent',
             'model' => App\Models\Admin::class,
         ],

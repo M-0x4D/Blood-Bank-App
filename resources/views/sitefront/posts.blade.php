@@ -8,12 +8,13 @@
 
 <body class="article">
     
-
+<div class="view">
 <div class="container blog-page">
-    <div class="row clearfix">
+    <div class="row ">
+    <div class="owl-carousel articles-carousel">
     @foreach($posts as $post)
                         <!-- Set up your HTML -->
-                        <div class="owl-carousel articles-carousel">
+                       
 
 <div class="card">
     <div class="photo">
@@ -33,9 +34,10 @@
     </div>
 </div>
 
-                        </div>
+                       
                         @endforeach
-        
+                        </div>
+</div>
     </div>
 </div>
 </body>

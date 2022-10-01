@@ -44,6 +44,9 @@ class CitiesController extends Controller
         return view('dashboard-front.edit_city')->with(['city_id' => $city_id , 'governrates' => $governrates]);
     }
 
+
+
+    
     function edit(Request $request)
     {
         City::where('id' , $request->city_id)->update([

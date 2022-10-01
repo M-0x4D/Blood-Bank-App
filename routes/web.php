@@ -40,16 +40,16 @@ Auth::routes();
 Route::get('/index', [FrontController::class, 'index'])->name('index');
 Route::get('/register', [FrontController::class, 'register'])->name('register');
 Route::get('/signin', [FrontController::class, 'signin'])->name('signin');
-Route::get('/donations', [FrontController::class, 'donations'])->name('donations');
-Route::get('/posts', [FrontController::class, 'posts'])->name('posts');
+Route::get('/wb-donations', [FrontController::class, 'donations'])->name('wb-donations');
+Route::get('/wb-posts', [FrontController::class, 'posts'])->name('wb-posts');
 Route::get('/who-are-us', [FrontController::class, 'who_are_us'])->name('whoareus');
 Route::get('/contact-us', [FrontController::class, 'contact_us'])->name('contactus');
 Route::get('/post-details', [FrontController::class, 'post_details'])->name('post-details');
 Route::get('/donation-details', [FrontController::class, 'donation_details'])->name('donation-details');
-Route::get('/create-donation', [FrontController::class, 'create_donation'])->name('create-donation');
 Route::get('/about-app', [FrontController::class, 'about_app'])->name('about-app');
 Route::post('/web-register', [WebAuth::class, 'register'])->name('web-register');
 Route::post('/web-login', [WebAuth::class, 'login'])->name('web-login');
+Route::get('/wb-logout', [WebAuth::class, 'logout'])->name('wb-logout');
 
 
 // Route::middleware('auth:client_web')->group(function(){
@@ -61,16 +61,37 @@ Route::post('/web-login', [WebAuth::class, 'login'])->name('web-login');
 // });
 
 
+Route::middleware('auth:client_web')->group(function(){
 
+    Route::post('/create-post', [WebLogic::class, 'create_post'])->name('create-post');
 
-Route::middleware('auth')->group(function(){
+    Route::get('/create-post-view', [WebLogic::class, 'create_post_view'])->name('create-post-view');
 
-    
+    Route::get('/create-donation', [FrontController::class, 'create_donation'])->name('create-donation');
+    Route::post('/wb-create-donation', [WebLogic::class, 'create_donation'])->name('wb-create-donation');
+
 
 });
 
+
+
+
+
+
+
+
+
+
+
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // admin routes
-// governrates
+
+Route::middleware('auth:admin')->group(function(){ 
+
+
+    // governrates
 Route::get('/governrates', [BusinessController::class, 'governrates'])->name('governrates');
 Route::get('/create-governrate-view', [GovernratesController::class, 'create_governrate_view'])->name('create-governrate-view');
 Route::post('/create-governrate', [GovernratesController::class, 'create'])->name('create-governrate');
@@ -111,12 +132,12 @@ Route::get('/edit-category-view', [CategoriesController::class, 'edit_category_v
 
 // posts
 Route::get('/posts', [PostsController::class, 'return_posts'])->name('posts');
-Route::get('/create-city-view', [PostsController::class, 'create_city_view'])->name('create-city-view');
-Route::post('/create-city', [PostsController::class, 'create'])->name('create-city');
-Route::post('/show-city', [PostsController::class, 'show'])->name('show-city');
-Route::post('/edit-city', [PostsController::class, 'edit'])->name('edit-city');
-Route::get('/delete-city', [PostsController::class, 'delete'])->name('delete-city');
-Route::get('/edit-city-view', [PostsController::class, 'edit_city_view'])->name('edit-city-view');
+// Route::get('/create-city-view', [PostsController::class, 'create_city_view'])->name('create-city-view');
+// Route::post('/create-city', [PostsController::class, 'create'])->name('create-city');
+// Route::post('/show-city', [PostsController::class, 'show'])->name('show-city');
+ Route::post('/edit-post', [PostsController::class, 'edit'])->name('edit-post');
+// Route::get('/delete-city', [PostsController::class, 'delete'])->name('delete-city');
+ Route::get('/edit-post-view', [PostsController::class, 'edit_post_view'])->name('edit-post-view');
 
 
 
@@ -126,21 +147,19 @@ Route::get('/edit-city-view', [PostsController::class, 'edit_city_view'])->name(
 
 // donations
 Route::get('/donations', [DonationController::class, 'return_donations'])->name('donations');
-Route::get('/create-city-view', [DonationController::class, 'create_city_view'])->name('create-city-view');
-Route::post('/create-city', [DonationController::class, 'create'])->name('create-city');
-Route::post('/show-city', [DonationController::class, 'show'])->name('show-city');
-Route::post('/edit-city', [DonationController::class, 'edit'])->name('edit-city');
-Route::get('/delete-city', [DonationController::class, 'delete'])->name('delete-city');
-Route::get('/edit-city-view', [DonationController::class, 'edit_city_view'])->name('edit-city-view');
+// Route::get('/create-city-view', [DonationController::class, 'create_city_view'])->name('create-city-view');
+// Route::post('/create-city', [DonationController::class, 'create'])->name('create-city');
+// Route::post('/show-city', [DonationController::class, 'show'])->name('show-city');
+ Route::post('/edit-donation', [DonationController::class, 'edit'])->name('edit-donation');
+// Route::get('/delete-city', [DonationController::class, 'delete'])->name('delete-city');
+ Route::get('/edit-donation-view', [DonationController::class, 'edit_donation_view'])->name('edit-donation-view');
 
 
 // security
-Route::get('/custom-login', [AdminController::class, 'custom_login'])->name('custom-login');
-Route::get('/users', [AdminController::class, 'users'])->name('users');
+
 Route::get('/admin-users', [AdminController::class, 'admin_users'])->name('admin-users');
 Route::get('/roles', [AdminController::class, 'roles'])->name('roles');
 Route::get('/permissions', [AdminController::class, 'permissions'])->name('permissions');
-Route::post('/admin-login', [AdminController::class, 'admin_login'])->name('admin-login');
 Route::get('/free-admin', [AdminController::class, 'index']);
 Route::get('/create-user-view', [AdminController::class, 'create_user_view'])->name('create-user-view');
 Route::post('/create-user', [AdminController::class, 'create_user'])->name('create-user');
@@ -151,12 +170,12 @@ Route::get('/edit-role-view/{id}', [AdminController::class, 'edit_role_view'])->
 Route::get('/show-user/{id}', [AdminController::class, 'show_user'])->name('show-user');
 Route::get('/delete-role/{id}', [AdminController::class, 'delete_role'])->name('delete-role');
 Route::get('/delete-user/{id}', [AdminController::class, 'delete_user'])->name('delete-user');
-
-
-
-Route::middleware('auth')->group(function(){ 
-
 });
+
+Route::post('/admin-login', [AdminController::class, 'admin_login'])->name('admin-login');
+
+Route::get('/custom-login', [AdminController::class, 'custom_login'])->name('custom-login');
+Route::get('/users', [AdminController::class, 'users'])->name('users');
 
 //Route::get('/login', [AdminController::class , 'login_view'])->name('login');
 Route::get('/logout', [AdminController::class , 'logout'])->name('logout');

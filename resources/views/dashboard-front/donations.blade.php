@@ -51,6 +51,8 @@
           </a>
         </td>
         <td>
+        <a href="{{ route('edit-donation-view' , ['id' => $donation->id]) }}">
+
             <button type="button" class="btn btn-success">edit</button>
         </td>
         <td>

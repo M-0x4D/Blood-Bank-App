@@ -70,9 +70,10 @@
             <div class="view">
                 <div class="container">
                     <div class="row">
+                    <div class="owl-carousel articles-carousel">
                     @foreach($posts as $post)
                         <!-- Set up your HTML -->
-                        <div class="owl-carousel articles-carousel">
+                       
 
 <div class="card">
     <div class="photo">
@@ -92,8 +93,9 @@
     </div>
 </div>
 
-                        </div>
+                       
                         @endforeach
+                        </div>
                     </div>
                 </div>
             </div>
@@ -144,53 +146,22 @@
                         </div>
                     </form>
                     <div class="patients">
-                        <div class="details">
-                            <div class="blood-type">
-                                <h2 dir="ltr">B+</h2>
-                            </div>
-                            <ul>
-                                <li><span>اسم الحالة:</span> احمد محمد احمد</li>
-                                <li><span>مستشفى:</span> القصر العينى</li>
-                                <li><span>المدينة:</span> المنصورة</li>
-                            </ul>
-                            <a href="inside-request.html">التفاصيل</a>
-                        </div>
-                        <div class="details">
-                            <div class="blood-type">
-                                <h2 dir="ltr">A+</h2>
-                            </div>
-                            <ul>
-                                <li><span>اسم الحالة:</span> احمد محمد احمد</li>
-                                <li><span>مستشفى:</span> القصر العينى</li>
-                                <li><span>المدينة:</span> المنصورة</li>
-                            </ul>
-                            <a href="inside-request.html">التفاصيل</a>
-                        </div>
-                        <div class="details">
-                            <div class="blood-type">
-                                <h2 dir="ltr">AB+</h2>
-                            </div>
-                            <ul>
-                                <li><span>اسم الحالة:</span> احمد محمد احمد</li>
-                                <li><span>مستشفى:</span> القصر العينى</li>
-                                <li><span>المدينة:</span> المنصورة</li>
-                            </ul>
-                            <a href="inside-request.html">التفاصيل</a>
-                        </div>
-                        <div class="details">
-                            <div class="blood-type">
-                                <h2 dir="ltr">O-</h2>
-                            </div>
-                            <ul>
-                                <li><span>اسم الحالة:</span> احمد محمد احمد</li>
-                                <li><span>مستشفى:</span> القصر العينى</li>
-                                <li><span>المدينة:</span> المنصورة</li>
-                            </ul>
-                            <a href="inside-request.html">التفاصيل</a>
-                        </div>
-                    </div>
+                    @foreach($donations as $donation)
+
+<div class="details">
+    <div class="blood-type">
+        <h2 dir="ltr">{{$donation->bloodtype_name}}</h2>
+    </div>
+    <ul>
+        <li><span>اسم الحالة:</span>{{$donation->patient_name}}</li>
+        <li><span>مستشفى:</span>{{$donation->hospital_name}}</li>
+        <li><span>المدينة:</span> {{$donation->cityname}}</li>
+    </ul>
+    <a href="{{route('donation-details' , ['id' => $donation->id])}}">التفاصيل</a>
+</div>
+@endforeach
                     <div class="more">
-                        <a href="donation-requests.html">المزيد</a>
+                        <a href="{{route('wb-donations')}}">المزيد</a>
                     </div>
                 </div>
             </div>

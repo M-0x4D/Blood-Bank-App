@@ -288,6 +288,26 @@
             </a>
             
           </li>
+          <li class="nav-item">
+            <a href="{{route('donations')}}" class="nav-link">
+              <i class="nav-icon"></i>
+              <p>
+                Contacts
+                <i class=" right"></i>
+              </p>
+            </a>
+            
+          </li>
+          <li class="nav-item">
+            <a href="{{route('donations')}}" class="nav-link">
+              <i class="nav-icon"></i>
+              <p>
+                settings
+                <i class=" right"></i>
+              </p>
+            </a>
+            
+          </li>
           
           <li class="nav-header ">Privilledges</li>
           

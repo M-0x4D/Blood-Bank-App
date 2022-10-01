@@ -4,10 +4,13 @@ namespace App\Http\Controllers\front;
 
 use Illuminate\Http\Request;
 use App\models\Client;
+use App\models\Post;
+use App\models\DonationRequest;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
 
 
 
@@ -43,6 +46,7 @@ class WebAuth extends Controller
         $client->date_of_birth = $request->date_of_birth;
         $client->status = true;
         $client->save();
+        $client->assignRole('normal');
        // $client->client_role()->attach(4 , ['model_type' => 'normal_user' , 'model_id' => $client->id]);
         return redirect('index');
             
@@ -52,50 +56,38 @@ class WebAuth extends Controller
     }
     function login(Request $request)
     {
-        $validator = validator()->make($request->all() , [
-
+        request()->validate([
             'phone' => 'required',
             'password' => 'required',
-            
-        ]);
-
-
-        if ($validator->fails()) {
-            # code...
-             return response()->json(['msg'=>"validation error"]);
-        }
-
-
-
-        if (Auth::guard('client_web')->validate(['phone' => $request->phone , 'password' => $request->password])) {
-
-            # code...
-            $client = Client::where('phone' , $request->phone)->first();
-
-            if($client)
-        {
-            if(Hash::check($request->password , $client->password))
+            ]);
+     
+            $credentials = $request->only('phone', 'password');
+            if (Auth::guard('client_web')->attempt(['phone' => $request->phone , 'password' => $request->password])) 
             {
-                return redirect('index');//response()->json(['api_token' => $client->api_token , 'user'=>$client]);
+            
+                $posts = Post::all();
+                $donations = DB::table('donation_requests')->join('blood_types' , 'donation_requests.blood_type_id' , '=' , 'blood_types.id')
+                ->join('cities' , 'donation_requests.city_id' , '=' , 'cities.id')
+                ->select('donation_requests.id','donation_requests.patient_name','donation_requests.hospital_name','blood_types.name AS bloodtype_name' , 'cities.name AS cityname')
+                ->get();
+               // $clients = User::all();
+                return redirect('index')->with(['posts' => $posts , 'donations' => $donations]);
 
             }
-            else
-        {
-            return returnjson(0,'failed','password is not valid');
-        }
-            
-            
-        }
         else
         {
-            return returnjson(0,'failed','phone number is not valid');
+           return redirect('signin');
         }
-           // 
-            }
-        else {
-            return returnjson(0,'failed','validation error ');
-        } 
 
+    }
+
+
+
+
+    function logout()
+    {
+        Auth::guard('client_web')->logout();
+        return redirect('index');
     }
 
     

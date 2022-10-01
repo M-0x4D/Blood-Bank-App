@@ -64,7 +64,7 @@
                             </div>
                             <div class="e-mail">
                                 <i class="far fa-envelope"></i>
-                                <p>name@name.com</p>
+                                <p>test</p>
                             </div>
                         </div>
                         
@@ -137,10 +137,10 @@
                                 <a class="nav-link" href="{{route('about-app')}}">عن بنك الدم</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{route('posts')}}">المقالات</a>
+                                <a class="nav-link" href="{{route('wb-posts')}}">المقالات</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{route('donations')}}">طلبات التبرع</a>
+                                <a class="nav-link" href="{{route('wb-donations')}}">طلبات التبرع</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="{{route('whoareus')}}">من نحن</a>
@@ -155,20 +155,38 @@
                        
                         
 
-                        @if(Auth::check()) 
+                        @if(auth()->guard('client_web')->user()) 
+
                         <div>
                         <a href="{{route('create-donation')}}" class="donate">
                             <img src="imgs/transfusion.svg">
                             <p>طلب تبرع</p>
                         </a>
                         </div>
+                        &nbsp;
+                        <div>
+                        <a href="{{route('create-post-view')}}" class="donate">
+                            
+                            <p> انشاء مقال</p>
+                        </a>
+                        </div>
+                        &nbsp;
+                        <div>
+                        <a href="{{route('wb-logout')}}" class="donate">
+                            
+                            <p> تسجيل خروج</p>
+                        </a>
+                        </div>
                         @else
                         <!--not a member-->
                         <div class="accounts">
                             <a href="{{route('register')}}" class="create">إنشاء حساب جديد</a>
+
+                            
                             <a href="{{route('signin')}}" class="signin">الدخول</a>
                         </div>
                         @endif
+                        
                         
                         <!-- I'm a member -->
 

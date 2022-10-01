@@ -4,6 +4,9 @@ namespace App\Http\Controllers\front;
 
 use Illuminate\Http\Request;
 use App\models\Post;
+use App\models\Governrate;
+use App\models\BloodType;
+use App\models\City;
 use App\models\DonationRequest;
 use Illuminate\Support\Facades\DB;
 
@@ -17,7 +20,11 @@ class FrontController extends Controller
     function index()
     {
         $posts = Post::all();
-        return view('sitefront.index')->with('posts' , $posts);
+        $donations = DB::table('donation_requests')->join('blood_types' , 'donation_requests.blood_type_id' , '=' , 'blood_types.id')
+        ->join('cities' , 'donation_requests.city_id' , '=' , 'cities.id')
+        ->select('donation_requests.id','donation_requests.patient_name','donation_requests.hospital_name','blood_types.name AS bloodtype_name' , 'cities.name AS cityname')
+        ->get();
+        return view('sitefront.index')->with(['posts' => $posts , 'donations' => $donations]);
     }
 
     function register()
@@ -91,8 +98,13 @@ class FrontController extends Controller
     }
     function create_donation()
     {
-        return view('sitefront.create_donation');
+        $governrates = Governrate::all();
+        $bloodtypes = BloodType::all();
+        $cities = City::all();
+        return view('sitefront.create_donation')->with(['governrates' => $governrates , 'bloodtypes' => $bloodtypes , 'cities' => $cities ]);
     }
+
+
     function about_app()
     {
         return view('sitefront.about_app');

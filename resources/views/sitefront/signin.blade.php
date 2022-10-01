@@ -45,7 +45,8 @@
                         </div>
                         <div class="row buttons">
                             <div class="col-md-6 right">
-                            <input type="submit" value="دخول"></input>
+                            <input class="btn btn-block mb-4" type="submit" value="دخول">
+                        </input>
                             </div>
                             <div class="col-md-6 left">
                                 <a href="create-account.html">انشاء حساب جديد</a>

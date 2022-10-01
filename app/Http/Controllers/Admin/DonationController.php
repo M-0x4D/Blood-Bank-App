@@ -39,8 +39,8 @@ class DonationController extends Controller
 
     function edit_donation_view(Request $request)
     {
-        $governrate_id = $request->id;
-        return view('dashboard-front.edit_governrate')->with('governrate_id' , $governrate_id);
+        $donation_id = $request->id;
+        return view('dashboard-front.edit_donation')->with('donation_id' , $donation_id);
 
     }
 
@@ -48,19 +48,19 @@ class DonationController extends Controller
 
     function edit(Request $request)
     {
-        Governrate::where('id' , $request->governrate_id)->update([
-            'name' => $request->name
+        DonationRequest::where('id' , $request->donation_id)->update([
+            'patient_name' => $request->patient_name
         ]);
-        $governrates = Governrate::all();
-        return redirect('governrates')->with('governrates' , $governrates);
+        $donations = DonationRequest::all();
+        return redirect('donations')->with('donations' , $donations);
     }
 
     function delete(Request $request)
     {
 
-        $governrate=Governrate::find($request->id);
-        $governrate->delete();
-        $governrates = Governrate::all();
-        return redirect('governrates')->with('governrates' , $governrates);
+        $donation=DonationRequest::find($request->id);
+        $donation->delete();
+        $donations = Governrate::all();
+        return redirect('donations')->with('donations' , $donations);
     }
 }
